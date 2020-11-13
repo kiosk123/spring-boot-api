@@ -39,6 +39,12 @@ public class MemberService {
         return memberRepository.findOne(id);
     }
     
+    @Transactional //Member를 반환할 수도 있지만 Command와 Query를 철저하게 분리하자
+    public void update(Long id, String userName) {
+        Member member = memberRepository.findOne(id);
+        member.setUserName(userName);
+    }
+    
     //중복회원 검증
     private void validateDuplicationMember(Member member) {
         //멀티스레드 환경에서 문제 될 수 읶기때문에 데이터베이스 userName에 unique 제약조건을 권장함
