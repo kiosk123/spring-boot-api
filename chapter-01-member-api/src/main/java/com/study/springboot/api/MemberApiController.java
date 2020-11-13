@@ -1,17 +1,24 @@
 package com.study.springboot.api;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.study.springboot.api.MemberApiController.MemberDTO;
 import com.study.springboot.domain.Member;
 import com.study.springboot.service.MemberService;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +39,11 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
     
+    @GetMapping("/api/v1/members")
+    public List<Member> findMembersV1() {
+        return memberService.findMembers();
+    }
+    
     /**
      * v2는 엔티티가 변경되고 api스펙이 변경되지 않음 - 권장하는 방식!
      */
@@ -42,13 +54,34 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
     
+    @GetMapping("/api/v2/members")
+    public Result<List<MemberDTO>> findMembersV2() {
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDTO> collect = findMembers.stream()
+                                                .map(member -> new MemberDTO(member.getUserName()))
+                                                .collect(Collectors.toList());
+        return new Result<List<MemberDTO>>(collect);
+    }
+    
     @PutMapping("/api/v2/members/{id}")
     public UpdateMemberResponse modifyMemberV2(@PathVariable("id") Long id, 
                                                @RequestBody @Valid UpdateMemberRequest request) {
         memberService.update(id, request.getUserName());
         Member findMember = memberService.findOne(id);
         return new UpdateMemberResponse(findMember.getId(), findMember.getUserName());
-    } 
+    }
+    
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    static class MemberDTO {
+        private String name;
+    }
     
     @Data
     static class UpdateMemberRequest {
