@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Member {
     private Long id;
     
     @NonNull
+    @NotEmpty
     private String userName;
     
     @Embedded

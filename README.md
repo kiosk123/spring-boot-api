@@ -9,6 +9,10 @@
 ##스프링 프로젝트 구성하기
 * [Spring Initializr 사이트 활용](https://start.spring.io/)
 
+## API 테스트
+* [POSTMAN](https://www.postman.com/)
+* [Katalon](https://www.katalon.com/)
+
 ##참고사이트
 * [Spring 가이드 문서](https://spring.io/guides)
 * [Spring Boot 참고 문서](https://docs.spring.io/spring-boot/docs/)
