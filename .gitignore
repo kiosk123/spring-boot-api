@@ -1,6 +1,9 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,gradle,java,java-web,code-java
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,gradle,java,java-web,code-java
+# 플러그인에서 생성된 미리보기 파일
+.README.md.html
+
 
 ### Code-Java ###
 # Language Support for Java(TM) by Red Hat extension for Visual Studio Code - https://marketplace.visualstudio.com/items?itemName=redhat.java
