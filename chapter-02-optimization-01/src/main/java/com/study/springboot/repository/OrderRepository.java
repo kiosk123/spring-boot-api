@@ -60,4 +60,21 @@ public class OrderRepository {
 
         return query.getResultList();
     }
+
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery("select o from Order o join fetch o.member join fetch o.delivery d", Order.class)
+                 .getResultList();
+    }
+
+    /**
+     * 
+     * DTO 생성자 파라미터로 엔티티(입베디드 값타입은 제외)를 넘기는 것은 안된다.
+     * 왜냐하면 엔티티 파라미터를 식별자를 인식하기 때문
+     */
+    public List<OrderSimpleQueryDTO> findOrderDTOs() {
+        return em.createQuery("select new com.study.springboot.repository.OrderSimpleQueryDTO(o.id, m.userName, o.orderDate, o.status, d.address) "
+                            + "from Order o join o.member m join o.delivery d",
+                            OrderSimpleQueryDTO.class)
+                 .getResultList();
+    }
 }
