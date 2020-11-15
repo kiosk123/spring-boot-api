@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.study.springboot.api.OrderApiController.OrderDTO;
 import com.study.springboot.domain.Member;
 import com.study.springboot.domain.Order;
 
@@ -96,4 +95,20 @@ public class OrderRepository {
                               "join fetch oi.item i", Order.class)
                  .getResultList();
 	}
+	
+	/**
+	 * 컬렉션 데이터를 페이징 하기 위한 방법
+	 * XToOne 관계는 모두 페치 조인한다.
+	 * 컬렉션은 지연 로딩으로 조회한다.
+	 * 지연 로딩 성능 최적화를 위해 @BatchSize를 적용한다. 이옵션을 적용하면 컬렉션이나 프록시 객체를 한번에 설정한 
+	 * size만큼 In 쿼리로 조회한다.
+	 */
+	public List<Order> findAllWithItemUsingPaging() {
+        return em.createQuery("select distinct o from Order o " +
+                              "join fetch o.member " +
+                              "join fetch o.delivery d "+ //member와 delivery까지만 페치조인
+                              "join o.orderItems oi " +   //item은 ToOne관계지만 orderItems를 통해서 나오기 때문에 일반조인
+                              "join oi.item i", Order.class)
+                 .getResultList();
+    }
 }
