@@ -1,7 +1,10 @@
 package com.study.springboot.api;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import com.study.springboot.domain.OrderItem;
 import com.study.springboot.domain.OrderStatus;
 import com.study.springboot.repository.OrderRepository;
 import com.study.springboot.repository.OrderSearch;
+import com.study.springboot.repository.query.OrderFlatDTO;
 import com.study.springboot.repository.query.OrderQueryDTO;
 import com.study.springboot.repository.query.OrderQueryRepository;
 
@@ -83,11 +87,36 @@ public class OrderApiController {
     }
     
     /**
-     * DTO를 이용한 컬렉션 조회
+     * DTO를 이용한 컬렉션 조회 - N + 1문제 발생
      */
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDTO> ordersV4() {
         return orderQueryRepository.findOrderQueryDTOs();
+    }
+    
+    /**
+     * DTO를 이용한 컬렉션 조회 - 최적화 쿼리 두번으로 처리
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDTO> ordersV5() {
+        return orderQueryRepository.findAllOrderQueryDTOsByOptimization();
+    }
+    
+    /**
+     * DTO를 이용한 컬렉션 조회 - 쿼리 한번으로 처리
+     */
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDTO> ordersV6() {
+        return orderQueryRepository.findOrderQueryDTOsInFlat();
+    }
+    
+    /**
+     * v6버전을 v5 api 스펙에 맞게 변환
+     */
+    @GetMapping("/api/v6.1/orders")
+    public List<OrderQueryDTO> ordersV6_1() {
+        //TODO 스트림 API공부
+        return null;
     }
 
     @Getter
