@@ -109,6 +109,8 @@ public class OrderRepository {
                               "join fetch o.delivery d "+ //member와 delivery까지만 페치조인
                               "join o.orderItems oi " +   //item은 ToOne관계지만 orderItems를 통해서 나오기 때문에 일반조인
                               "join oi.item i", Order.class)
+                 .setFirstResult(0)
+                 .setMaxResults(100)
                  .getResultList();
     }
 }
