@@ -72,6 +72,8 @@ public class OrderSimpleApiController {
     /**
      * v3에서 페치조인 대신에 일반조인 사용하고 여기서 필요한 값만 바로 DTO에 넣어서
      * 데이터 추출
+     * 다만 API 스펙이 바뀔 경우 repository를 뜯어야함..
+     * v3과 v4은 서로 장단이 있다...
      */
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDTO> orderV4() {
