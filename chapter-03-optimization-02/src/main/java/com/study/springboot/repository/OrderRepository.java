@@ -85,6 +85,7 @@ public class OrderRepository {
      * 페치 조인을 적용한 Order 정보 가져오기
      * 컬렉션(orderItems)과 조인되기 때문에 Order가 orderItem의 갯수만큼 생성 - 일대다 페치조인에서 발생하는 문제
      * 그래서 distict 키워드로 해결한다.
+     * 일대다 페치조인은 페이징 불가능!!!.
      */
 	public List<Order> findAllWithItem() {
         return em.createQuery("select distinct o from Order o " +
