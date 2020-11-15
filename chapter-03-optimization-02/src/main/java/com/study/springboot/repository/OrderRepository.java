@@ -86,6 +86,7 @@ public class OrderRepository {
      * 그래서 distict 키워드로 해결한다.
      * 일대다 페치조인은 페이징 불가능!!!.
      * 컬렉션 페치조인은 1개만 사용하자 -> 2개 이상이면 데이터 뻥튀기 및 정합성 문제 발생!!!
+     * 한꺼번에 조회되는 데이터량이 엄청 많음 !!!
      */
 	public List<Order> findAllWithItem() {
         return em.createQuery("select distinct o from Order o " +
@@ -105,10 +106,9 @@ public class OrderRepository {
 	 */
 	public List<Order> findAllWithItemUsingPaging() {
         return em.createQuery("select distinct o from Order o " +
-                              "join fetch o.member " +
-                              "join fetch o.delivery d "+ //member와 delivery까지만 페치조인
-                              "join o.orderItems oi " +   //item은 ToOne관계지만 orderItems를 통해서 나오기 때문에 일반조인
-                              "join oi.item i", Order.class)
+                              "join fetch o.member " +    //member와 delivery까지만 페치조인
+                              "join fetch o.delivery d ", //item은 ToOne관계지만 orderItems를 통해서 나오기 때문에 일반조인
+                               Order.class)
                  .setFirstResult(0)
                  .setMaxResults(100)
                  .getResultList();

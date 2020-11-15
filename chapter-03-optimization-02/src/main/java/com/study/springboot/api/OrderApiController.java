@@ -13,6 +13,8 @@ import com.study.springboot.domain.OrderItem;
 import com.study.springboot.domain.OrderStatus;
 import com.study.springboot.repository.OrderRepository;
 import com.study.springboot.repository.OrderSearch;
+import com.study.springboot.repository.query.OrderQueryDTO;
+import com.study.springboot.repository.query.OrderQueryRepository;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderApiController {
     
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
     
     /**
      * 엔티티 직접 노출
@@ -57,13 +60,35 @@ public class OrderApiController {
                      .collect(Collectors.toList());
         
     }
-    
+    /**
+     * 페치조인을 이용한 데이터 가져오기
+     */
     @GetMapping("/api/v3/orders")
     public List<OrderDTO> orderV3() {
-        List<Order> orders = orderRepository.findAllWithItem(); 
-        return null;
+        return orderRepository.findAllWithItem()
+                              .stream()
+                              .map(OrderDTO::new)
+                              .collect(Collectors.toList());
     }
     
+    /**
+     * default_batch_fetch_size 값 설정을 통한 쿼리 최적화 후 실행
+     */
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDTO> orderV3_1() {
+        return orderRepository.findAllWithItemUsingPaging()
+                              .stream()
+                              .map(OrderDTO::new)
+                              .collect(Collectors.toList());
+    }
+    
+    /**
+     * DTO를 이용한 컬렉션 조회
+     */
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDTO> ordersV4() {
+        return orderQueryRepository.findOrderQueryDTOs();
+    }
 
     @Getter
     static class OrderDTO {
