@@ -92,6 +92,6 @@ public class OrderRepository {
                               "join fetch o.delivery d "+
                               "join fetch o.orderItems oi " +
                               "join fetch oi.item i", Order.class)
-                              .getResultList();
+                 .getResultList();
 	}
 }
