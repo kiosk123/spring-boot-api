@@ -11,3 +11,4 @@ rootProject.name = 'spring-boot-api'
 
 include 'chapter-01-member-api'
 include 'chapter-02-optimization-01'
+include 'chapter-03-optimization-02'
