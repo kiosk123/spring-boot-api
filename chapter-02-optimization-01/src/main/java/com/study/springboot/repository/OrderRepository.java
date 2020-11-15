@@ -70,6 +70,8 @@ public class OrderRepository {
      * 
      * DTO 생성자 파라미터로 엔티티(입베디드 값타입은 제외)를 넘기는 것은 안된다.
      * 왜냐하면 엔티티 파라미터를 식별자를 인식하기 때문
+     * 이렇게 사용할꺼면 쿼리 리포지토리 따로 만들어서 분리해서 사용할 것을 권장
+     * 왜냐하면 리포지토리는 순수 엔티티 조회 용도로 기능하는 것이 가장 좋음..
      */
     public List<OrderSimpleQueryDTO> findOrderDTOs() {
         return em.createQuery("select new com.study.springboot.repository.OrderSimpleQueryDTO(o.id, m.userName, o.orderDate, o.status, d.address) "
