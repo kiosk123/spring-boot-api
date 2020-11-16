@@ -15,9 +15,12 @@
 * [Katalon](https://www.katalon.com/)
 
 ## 참고사이트
-* [Spring 가이드 문서](https://spring.io/guides)
-* [Spring Boot 참고 문서](https://docs.spring.io/spring-boot/docs/)
-* [쿼리 파라미터 로그 남기기](https://github.com/gavlyukovskiy/spring-boot-data-source-decorator)
+ - [Spring 가이드 문서](https://spring.io/guides)
+ - [Spring Boot 참고 문서](https://docs.spring.io/spring-boot/docs/)
+ - [쿼리 파라미터 로그 남기기](https://github.com/gavlyukovskiy/spring-boot-data-source-decorator)
+    - 그레이들에서 다음과 같이 설정
+    - implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' 
+    - 운영에서는 사용하지 말 것
 
 
 ## 챕터별 설명
