@@ -17,6 +17,7 @@ import com.study.springboot.domain.OrderStatus;
 import com.study.springboot.repository.OrderRepository;
 import com.study.springboot.repository.OrderSearch;
 import com.study.springboot.repository.query.OrderFlatDTO;
+import com.study.springboot.repository.query.OrderItemQueryDTO;
 import com.study.springboot.repository.query.OrderQueryDTO;
 import com.study.springboot.repository.query.OrderQueryRepository;
 
@@ -115,8 +116,27 @@ public class OrderApiController {
      */
     @GetMapping("/api/v6.1/orders")
     public List<OrderQueryDTO> ordersV6_1() {
-        //TODO 스트림 API공부
-        return null;
+        return orderQueryRepository.findOrderQueryDTOsInFlat()
+                                   .stream() //orderId, name, orderDate, orderStatus, address
+                                   .collect(Collectors.groupingBy(o -> new OrderQueryDTO(o.getOrderId(), 
+                                                                                         o.getName(), 
+                                                                                         o.getOrderDate(), 
+                                                                                         o.getOrderStatus(), 
+                                                                                         o.getAddress()),
+                                            
+                                            Collectors.mapping(o -> new OrderItemQueryDTO(o.getOrderId(),
+                                                                                          o.getItemName(),
+                                                                                          o.getOrderPrice(),
+                                                                                          o.getOrderPrice()), 
+                                            Collectors.toList())))
+                                   .entrySet()
+                                   .stream()
+                                   .map(e -> { 
+                                       OrderQueryDTO o = e.getKey();
+                                       o.setOrderItems(e.getValue());
+                                       return o;
+                                   })
+                                   .collect(Collectors.toList());
     }
 
     @Getter
