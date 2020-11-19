@@ -7,7 +7,7 @@
 * Thymeleaf 3 - 구성은 했지만 사용하지는 않음
 * Thymeleaf 이클립스 플러그인 - http://www.thymeleaf.org/eclipse-plugin-update-site/
 
-## 스프링 프로젝트 구성하기
+## 스프링 부트 프로젝트 구성하기
 * [Spring Initializr 사이트 활용](https://start.spring.io/)
 
 ## API 테스트
