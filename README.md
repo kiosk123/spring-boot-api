@@ -100,7 +100,7 @@ test {
 * API 노출시 필요한 데이터만 노출할 것 - 클라이언트와 강한 커플링 방지
 
 ## OSIV (Open Session In View) 관련 내용
-스프링은 OSIV 옵션의 기본값은 spring.jpa.open-in-view: true 값이다.  
+스프링은 OSIV 옵션의 기본값은 `spring.jpa.open-in-view: true` 값이다.  
 이 값이 true이면 영속성 컨텍스트(1차캐시)가 응답(Response)가 나갈때 까지 살아있다.  
 즉 `@Transactional` 이 붙은 메소드가 실행된 이후에도 영속성 컨텍스트(1차캐시)가 살아있다.  
 다만 이런 경우에는 수정은 불가능하고 읽기만 가능하다.  
