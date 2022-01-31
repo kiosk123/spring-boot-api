@@ -140,6 +140,8 @@ public List<Order> findAllWithMemberDelivery(int offset, int limit) {
 ```
 
 ## v4 페치조인 후 바로 DTO 생성해서 반환하는 코드
+
+바로 DTO를 조회할 수 있는 장점이 있지만 API 스펙이 바뀌면 코드를 뜯어 고쳐야함
 ```java
 @Repository
 @RequiredArgsConstructor
