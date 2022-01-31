@@ -1,11 +1,13 @@
 package com.study.springboot.api;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+
+import com.study.springboot.domain.Member;
+import com.study.springboot.service.MemberService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.study.springboot.api.MemberApiController.MemberDTO;
-import com.study.springboot.domain.Member;
-import com.study.springboot.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
