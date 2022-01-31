@@ -1,13 +1,10 @@
-package com.study.springboot.api;
+package jpabook.jpashop.api;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-
-import com.study.springboot.domain.Member;
-import com.study.springboot.service.MemberService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -47,7 +46,8 @@ public class MemberApiController {
      */
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
-        Member member = new Member(request.getUserName());
+        Member member = new Member();
+        member.setName(request.getName());
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
@@ -56,7 +56,7 @@ public class MemberApiController {
     public Result<List<MemberDTO>> findMembersV2() {
         List<Member> findMembers = memberService.findMembers();
         List<MemberDTO> collect = findMembers.stream()
-                                                .map(member -> new MemberDTO(member.getUserName()))
+                                                .map(member -> new MemberDTO(member.getName()))
                                                 .collect(Collectors.toList());
         return new Result<List<MemberDTO>>(collect);
     }
@@ -64,9 +64,9 @@ public class MemberApiController {
     @PutMapping("/api/v2/members/{id}")
     public UpdateMemberResponse modifyMemberV2(@PathVariable("id") Long id, 
                                                @RequestBody @Valid UpdateMemberRequest request) {
-        memberService.update(id, request.getUserName());
+        memberService.update(id, request.getName());
         Member findMember = memberService.findOne(id);
-        return new UpdateMemberResponse(findMember.getId(), findMember.getUserName());
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
     }
     
     @Data
@@ -84,7 +84,7 @@ public class MemberApiController {
     @Data
     static class UpdateMemberRequest {
         @NotEmpty
-        private String userName;
+        private String name;
     }
     
     @Data
@@ -98,7 +98,7 @@ public class MemberApiController {
     @Data
     static class CreateMemberRequest {
         @NotEmpty
-        private String userName;
+        private String name;
     }
     
     @Data

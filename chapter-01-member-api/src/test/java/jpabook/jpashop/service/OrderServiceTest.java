@@ -1,4 +1,4 @@
-package com.study.springboot.domain;
+package jpabook.jpashop.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +15,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.study.springboot.exception.NotEnoughStockException;
-import com.study.springboot.repository.OrderRepository;
-import com.study.springboot.service.OrderService;
+import jpabook.jpashop.domain.Address;
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderStatus;
+import jpabook.jpashop.domain.item.Book;
+import jpabook.jpashop.exception.NotEnoughStockException;
+import jpabook.jpashop.repository.OrderRepository;
 
 @ActiveProfiles(value = {"test"})
 @ExtendWith(SpringExtension.class)
@@ -41,7 +44,7 @@ public class OrderServiceTest {
     @BeforeEach
     private void 데이터_세팅() {
         member = new Member();
-        member.setUserName("회원1");
+        member.setName("회원1");
         member.setAddress(new Address("서울", "경기", "123-123"));
         em.persist(member);
         

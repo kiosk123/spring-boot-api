@@ -1,4 +1,4 @@
-package com.study.springboot.domain;
+package jpabook.jpashop.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,8 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.study.springboot.repository.MemberRepository;
-import com.study.springboot.service.MemberService;
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 
 @ActiveProfiles(value = {"test"})
 @ExtendWith(SpringExtension.class)
@@ -34,7 +34,7 @@ public class MemberServiceTest {
     public void memberJoinTest() {
         //given
         Member member = new Member();
-        member.setUserName("kim");
+        member.setName("kim");
         
         //when
         Long saveId = memberService.join(member);
@@ -47,9 +47,9 @@ public class MemberServiceTest {
     public void memberDuplicationJoinTest() {
         //given
         Member member = new Member();
-        member.setUserName("kim");
+        member.setName("kim");
         Member duplicatedMember = new Member();
-        duplicatedMember.setUserName("kim");
+        duplicatedMember.setName("kim");
                 
         //when
         memberService.join(member);
