@@ -92,7 +92,7 @@ test {
 
  
 ## 조회용 데이터 설정정보
-* com.study.springboot.service.InitDb를 참고
+* `com.study.springboot.service.InitDb`를 참고
 
 ## 핵심포인트
 * 엔티티를 API에 직접 노출하지 말것
