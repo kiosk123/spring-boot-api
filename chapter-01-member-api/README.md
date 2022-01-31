@@ -51,6 +51,9 @@ public class MemberApiController {
         return new UpdateMemberResponse(findMember.getId(), findMember.getName());
     }
     
+    //=============================================================
+    // API DTO
+    //=============================================================
     @Data
     @AllArgsConstructor
     static class Result<T> {
