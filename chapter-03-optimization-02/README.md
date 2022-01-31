@@ -262,7 +262,7 @@ public class OrderQueryRepository {
   - 컬렉션 페이징과 한계 돌파: V3.1
     - 컬렉션은 페치 조인시 페이징이 불가능
     - `@ManyToOne` `@OneToOne` 관계는 페치 조인으로 쿼리 수 최적화
-    - 컬렉션은 페치 조인 대신에 지연 로딩을 유지하고, `hibernate.default_batch_fetch_size` , `@BatchSize` 로 최적화 - 값은 100 ~ 1000 사이로
+    - 컬렉션은 페치 조인 대신에 지연 로딩을 유지하고, `hibernate.default_batch_fetch_size` , `@BatchSize` 로 최적화 - 값은 100 ~ 1000 사이로 권장
 - DTO 직접 조회
   - JPA에서 DTO를 직접 조회: V4
   - 컬렉션 조회 최적화 - 일대다 관계인 컬렉션은 IN 절을 활용해서 메모리에 미리 조회해서 최적화: V5
@@ -271,7 +271,7 @@ public class OrderQueryRepository {
   - 엔티티 조회 방식으로 우선 접근
     - 페치조인으로 쿼리 수를 최적화
     - 컬렉션 최적화
-      - 페이징 필요 `hibernate.default_batch_fetch_size` , `@BatchSize` 로 최적화 - 값은 100 ~ 1000 사이로
+      - 페이징 필요 `hibernate.default_batch_fetch_size` , `@BatchSize` 로 최적화 - 값은 100 ~ 1000 사이로 권장
       - 페이징 필요X 페치 조인 사용
 - 엔티티 조회 방식으로 해결이 안되면 DTO 조회 방식 사용
 - DTO 조회 방식으로 해결이 안되면 NativeSQL or 스프링 JdbcTemplate
