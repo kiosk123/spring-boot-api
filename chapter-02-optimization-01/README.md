@@ -138,3 +138,22 @@ public List<Order> findAllWithMemberDelivery(int offset, int limit) {
             .getResultList();
 }
 ```
+
+## v4 페치조인 후 바로 DTO 생성해서 반환하는 코드
+```java
+@Repository
+@RequiredArgsConstructor
+public class OrderSimpleQueryRepository {
+
+    private final EntityManager em;
+
+    public List<OrderSimpleQueryDto> findOrderDtos() {
+        return em.createQuery(
+                "select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d", OrderSimpleQueryDto.class)
+                .getResultList();
+    }
+}
+```
